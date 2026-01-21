@@ -8,9 +8,9 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Cadastro de Contato",
-  description: "Formulário de cadastro para Pessoa Física e Pessoa Jurídica",
-  generator: "v0.app",
+  title: "Solicitação de Contato",
+  description: "Formulário de solicitação de chamada para Pessoa Física e Pessoa Jurídica",
+  generator: "Boxdesk",
   icons: {
     icon: [
       {
