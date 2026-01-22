@@ -121,12 +121,33 @@ export function ContactForm() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const data = personType === "pf" ? pfData : pjData
+      
+      const response = await fetch("https://boxdesk.app.n8n.cloud/webhook-test/netway/contato", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tipoContato: personType === "pf" ? "Pessoa Física" : "Pessoa Jurídica",
+          ...data,
+          dataEnvio: new Date().toISOString(),
+        }),
+      })
 
-    setIsSubmitting(false)
-    setSubmitted(true)
+      if (!response.ok) {
+        console.error("Erro ao enviar dados:", response.statusText)
+      }
 
-    setTimeout(() => setSubmitted(false), 3000)
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+    } catch (error) {
+      console.error("Erro ao enviar cadastro:", error)
+    } finally {
+      setIsSubmitting(false)
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 3000)
+    }
   }
 
   if (submitted) {
@@ -154,9 +175,9 @@ export function ContactForm() {
             alt="Netway Fibra"
             className="h-10 w-auto object-contain mb-4"
           />
-          <h3 className="text-xl font-semibold text-foreground mb-2">Solicitação Enviada!</h3>
+          <h3 className="text-xl font-semibold text-foreground mb-2">Cadastro Enviado!</h3>
           <p className="text-muted-foreground text-center max-w-sm">
-            Sua solicitação foi enviada com sucesso. Nossa equipe entrará em contato em breve.
+            Seu cadastro foi realizado com sucesso. Nossa equipe entrara em contato em breve.
           </p>
         </CardContent>
       </Card>
@@ -168,7 +189,7 @@ export function ContactForm() {
       <CardHeader className="space-y-1 pb-6">
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-2xl font-bold text-foreground">Solicitação de Contato</CardTitle>
+            <CardTitle className="text-2xl font-bold text-foreground">Cadastro de Contato</CardTitle>
             <CardDescription className="text-muted-foreground">
               Preencha os dados para entrarmos em contato com você
             </CardDescription>

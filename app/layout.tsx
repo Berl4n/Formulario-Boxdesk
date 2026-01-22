@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   description: "Formulário de solicitação de chamada para Pessoa Física e Pessoa Jurídica",
   generator: "Boxdesk",
   icons: {
-    icon: [
-      {
+    icon: ['icon-light-32x32.png'
+      ,{
         url: "/icon-light-32x32.png",
         media: "(prefers-color-scheme: light)",
       },
